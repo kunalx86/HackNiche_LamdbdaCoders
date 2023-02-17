@@ -40,6 +40,11 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     layout: "/auth",
+  }, {
+    path: "/investments",
+    name: "Investments",
+    icon: "ni ni-money-coins text-black",
+    layout: "/admin",
   },
 ];
 export default routes;
