@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Card, CardActionArea, CardContent, CardActions, Box, Grid } from "@material-ui/core"
+
 import {
-  Card,
   CardImg,
   CardText,
   CardBody,
@@ -76,16 +77,16 @@ const Example = () => {
 
     <div>
       <Header />
-      <Col className="order-xl-1" >
+      <Col className="order-xl-1" style={{ padding: "2rem" }}>
         <Card className="bg-secondary shadow">
           <CardHeader className="bg-white border-0">
-            <Row>
+            <Row style={{ textAlign: "center", margin: "auto" }}>
               <Col lg="6">
                 <Label for="drop1">
                   <b>Risk Factor :&nbsp;</b>
                 </Label>
 
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} id="drop1">
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} id="drop1" >
                   <DropdownToggle caret>{riskFactor}</DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem onClick={() => {
@@ -117,47 +118,57 @@ const Example = () => {
                   </DropdownMenu>
                 </Dropdown>
               </Col>
+              {investmentdata.map((item, i) => {
+                return (
+                  item.risk_factor === riskFactor && item.time_period === timeFactor ? (
+
+                    <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{ justifyContent: "center" }}>
+
+                      {item.investments.map((ite, i) => (
+
+                        <Box sx={{ maxWidth: 330 }} md={{ minWidth: 500 }}>
+                          <Card variant="outlined" style={{ margin: "2rem" }} >
+                            <React.Fragment>
+                              <Card>
+                                <CardContent>
+                                  <CardTitle><b>Name :</b> {ite.name}</CardTitle>
+                                  <CardTitle><b>Type :</b> {ite.type}</CardTitle>
+                                  <CardTitle><b>Description : </b>{ite.description}</CardTitle>
+                                  <CardTitle><b>Return_rate :</b> {ite.return_rate}</CardTitle>
+                                  <CardTitle><b>Risk_level :</b> {ite.risk_level}</CardTitle>
+                                  <CardTitle><b>Min_investment : </b>{ite.min_investment}</CardTitle>
+                                  {/* <CardText>{item.investments}</CardText> */}
+                                  <Button style={{ color: "black", backgroundColor: "lightblue" }} onClick={() => {
+                                    setCurrent(i)
+                                    setModalShow(true)
+                                  }}>View More</Button>
+                                </CardContent>
+                              </Card>
+                            </React.Fragment></Card>
+                        </Box>
+
+
+                      ))}
+                    </Grid>
+
+
+
+                  ) : (
+                    <></>
+                  )
+                )
+              })}
             </Row>
           </CardHeader>
         </Card>
       </Col>
       <Typography>
-        {investmentdata.map((item, i) => {
-          return (
-            item.risk_factor === riskFactor && item.time_period === timeFactor ? (
 
-              item.investments.map((ite, i) => (
-
-                <Card>
-                  <CardBody>
-                    <CardTitle>Name : {ite.name}</CardTitle>
-                    <CardTitle>Type : {ite.type}</CardTitle>
-                    <CardTitle>Description : {ite.description}</CardTitle>
-                    <CardTitle>Return_rate : {ite.return_rate}</CardTitle>
-                    <CardTitle>Risk_level : {ite.risk_level}</CardTitle>
-                    <CardTitle>Min_investment : {ite.min_investment}</CardTitle>
-                    {/* <CardText>{item.investments}</CardText> */}
-                    <Button onClick={() => {
-                      setCurrent(i)
-                      setModalShow(true)
-                    }}>View More</Button>
-                  </CardBody>
-                </Card>
-
-              ))
-
-
-
-            ) : (
-              <></>
-            )
-          )
-        })}
       </Typography>
-      <MyVerticallyCenteredModal
+      {/* <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-      />
+      /> */}
 
 
     </div>
