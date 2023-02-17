@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // reactstrap components
 import {
@@ -14,54 +14,29 @@ import {
   InputGroup,
   Row,
   Col,
+  Spinner,
 } from "reactstrap";
 // layout for this page
 import Auth from "layouts/Auth.js";
+import { useAuth } from "../../providers/AuthProvider";
+import { useRouter } from "next/router";
 
 function Login() {
+  const { isLoading, login } = useAuth();
+  const router = useRouter();
+  const { prev } = router.query;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
           <CardHeader className="bg-transparent pb-5">
             <div className="text-muted text-center mt-2 mb-3">
-              <small>Sign in with</small>
-            </div>
-            <div className="btn-wrapper text-center">
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={require("assets/img/icons/common/github.svg")}
-                  />
-                </span>
-                <span className="btn-inner--text">Github</span>
-              </Button>
-              <Button
-                className="btn-neutral btn-icon"
-                color="default"
-                href="#pablo"
-                onClick={(e) => e.preventDefault()}
-              >
-                <span className="btn-inner--icon">
-                  <img
-                    alt="..."
-                    src={require("assets/img/icons/common/google.svg")}
-                  />
-                </span>
-                <span className="btn-inner--text">Google</span>
-              </Button>
+              <small>Sign in with credentials</small>
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4">
-              <small>Or sign in with credentials</small>
-            </div>
             <Form role="form">
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
@@ -71,6 +46,8 @@ function Login() {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
@@ -85,6 +62,8 @@ function Login() {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
@@ -105,8 +84,23 @@ function Login() {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
-                  Sign in
+                <Button 
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await login({
+                      email,
+                      password
+                    });
+                    if (prev) {
+                      router.push(prev)
+                    }
+                  }}
+                  className="my-4"
+                  color="primary"
+                  type="button"
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Spinner /> : `Sign in`}
                 </Button>
               </div>
             </Form>
