@@ -17,7 +17,7 @@ function Footer() {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Creative Tim
+              app name
             </a>
           </div>
         </Col>
@@ -30,7 +30,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Creative Tim
+                app name
               </NavLink>
             </NavItem>
 
@@ -50,7 +50,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Blog
+                Investments plans
               </NavLink>
             </NavItem>
 
@@ -60,7 +60,7 @@ function Footer() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                MIT License
+                User License
               </NavLink>
             </NavItem>
           </Nav>
