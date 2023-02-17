@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
 // reactstrap components
 import {
   Button,
@@ -14,8 +15,12 @@ import {
   Col,
   Spinner,
 } from "reactstrap";
-import { useQuery, useQueryClient, useMutation } from "react-query"
-import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import {
+  ToastsContainer,
+  ToastsStore,
+  ToastsContainerPosition,
+} from "react-toasts";
 // layout for this page
 import Admin from "layouts/Admin.js";
 // core components
@@ -24,7 +29,11 @@ import { useAuth } from "../../providers/AuthProvider";
 import { axios } from "../../axios";
 
 function Profile() {
-  const { image, user } = useAuth(); 
+  const { image, user } = useAuth();
+  const [value, setValue] = React.useState([2, 10]);
+  const rangeSelector = (event, newValue) => {
+    setValue(newValue);
+  };
   const queryClient = useQueryClient();
   const [formstate, setFormstate] = useState({
     firstname: "",
@@ -34,43 +43,51 @@ function Profile() {
     family_members_count: 0,
     total_earnings: 10000,
     country: "",
-    aboutMe: ""
-  })
-  const { data, isLoading } = useQuery("data-user", () => axios.get("/user_data").then(res => res.data), {
-    refetchOnWindowFocus: false
+    aboutMe: "",
+    address: "",
   });
-  
-  const { mutateAsync, isLoading: isMutationLoading } = useMutation((draft) => axios.post("/user_data", draft), {
-    onError(_, __, ___) {
-      ToastsStore.error("Something went wrong! 😥")
-    },
-    onSuccess(_, __, ___) {
-      ToastsStore.success("Data saved successfully! 🥳")
-    },
-    onSettled(_, __, ___) {
-      queryClient.invalidateQueries("data-user");
+  const { data, isLoading } = useQuery(
+    "data-user",
+    () => axios.get("/user_data").then((res) => res.data),
+    {
+      refetchOnWindowFocus: false,
     }
-  });
+  );
+
+  const { mutateAsync, isLoading: isMutationLoading } = useMutation(
+    (draft) => axios.post("/user_data", draft),
+    {
+      onError(_, __, ___) {
+        ToastsStore.error("Something went wrong! 😥");
+      },
+      onSuccess(_, __, ___) {
+        ToastsStore.success("Data saved successfully! 🥳");
+      },
+      onSettled(_, __, ___) {
+        queryClient.invalidateQueries("data-user");
+      },
+    }
+  );
 
   useEffect(() => {
     if (!isLoading && data) {
       setFormstate((f) => ({
         ...f,
         ...data,
-        income: parseInt(data.income)
+        income: parseInt(data.income),
       }));
     }
   }, [isLoading, data]);
 
   const onChange = (e) => {
-    setFormstate(f => ({
+    setFormstate((f) => ({
       ...f,
-      [e.target.name]: e.target.value
-    }))
-  }
+      [e.target.name]: e.target.value,
+    }));
+  };
 
   if (isLoading) {
-    return <Spinner />
+    return <Spinner />;
   }
   return (
     <>
@@ -87,14 +104,17 @@ function Profile() {
                       <img
                         alt="..."
                         className=""
-                        src={typeof window !== "undefined" ? window.webkitURL.createObjectURL(image) : ""}
+                        src={
+                          typeof window !== "undefined"
+                            ? window.webkitURL.createObjectURL(image)
+                            : ""
+                        }
                       />
                     </a>
                   </div>
                 </Col>
               </Row>
-              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-              </CardHeader>
+              <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4"></CardHeader>
               <CardBody className="pt-0 pt-md-4">
                 <Row>
                   <div className="col">
@@ -127,19 +147,6 @@ function Profile() {
                     <i className="ni business_briefcase-24 mr-2" />
                     Solution Manager - Creative Tim Officer
                   </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Computer Science
-                  </div>
-                  <hr className="my-4" />
-                  <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
-                  </a>
                 </div>
               </CardBody>
             </Card>
@@ -158,7 +165,7 @@ function Profile() {
                   <h6 className="heading-small text-muted mb-4">
                     User information
                   </h6>
-                  <div className="pl-lg-4">
+                  <div FormclassName="pl-lg-4">
                     <Row>
                       <Col lg="6">
                         <FormGroup>
@@ -173,7 +180,6 @@ function Profile() {
                             value={formstate.firstname}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="Lucky"
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
@@ -202,7 +208,6 @@ function Profile() {
                       </Col>
                     </Row>
                     <Row>
-
                       <Col lg="6">
                         <FormGroup>
                           <label
@@ -243,7 +248,6 @@ function Profile() {
                         </FormGroup>
                       </Col>
                     </Row>
-
                   </div>
                   <hr className="my-4" />
                   {/* Address */}
@@ -265,7 +269,6 @@ function Profile() {
                             value={formstate.income}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-income"
                             placeholder="Income"
                             type="number"
@@ -285,10 +288,8 @@ function Profile() {
                             value={formstate.family_members_count}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-family-members"
                             placeholder="Number"
-                            type="number"
                           />
                         </FormGroup>
                       </Col>
@@ -307,68 +308,124 @@ function Profile() {
                             value={formstate.total_earnings}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="Total"
                             id="input-total-earnings"
-                            placeholder="City"
+                            placeholder="0"
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-investment-capital"
+                          >
+                            Investment capital
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            defaultValue="United States"
+                            id="input-investment-capital"
+                            placeholder="0"
                             type="number"
                           />
                         </FormGroup>
                       </Col>
-                      <Col lg="4">
+                      <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-country"
+                            htmlFor="input-expense"
                           >
-                            Country
+                            Monthly Expense
                           </label>
                           <Input
                             name="country"
                             value={formstate.country}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="India"
+                            defaultValue="United States"
                             id="input-country"
                             placeholder="Country"
                             type="text"
                           />
                         </FormGroup>
                       </Col>
-
+                      <Col lg="8">
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-risk-ratio"
+                        >
+                          Risk Ratio
+                        </label>
+                        <div
+                          style={{
+                            margin: "auto",
+                            display: "block",
+                            width: "fit-content",
+                          }}
+                          id="input-risk-ratio"
+                        >
+                          <Typography id="range-slider" gutterBottom>
+                            Select Risk Range:
+                          </Typography>
+                          <Slider
+                            value={value}
+                            onChange={rangeSelector}
+                            valueLabelDisplay="auto"
+                          />
+                          Your range of Price is between {value[0]} /- and{" "}
+                          {value[1]} /-
+                        </div>
+                      </Col>
                     </Row>
                   </div>
                   <hr className="my-4" />
-                  {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
-                  <div className="pl-lg-4">
+                  {/* Address Information */}
+                  <h6 className="heading-small text-muted mb-4">
+                    Address Information
+                  </h6>
+                  <Col lg="8">
                     <FormGroup>
-                      <label>About Me</label>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-address"
+                      >
+                        Address
+                      </label>
                       <Input
-                        name="aboutMe"
+                        name="address"
                         onChange={onChange}
                         value={formstate.aboutMe}
                         className="form-control-alternative"
                         placeholder="A few words about you ..."
                         rows="4"
+                        defaultValue=""
                         type="textarea"
                       />
                     </FormGroup>
-                  </div>
-                  <Button disabled={isMutationLoading} color="primary" onClick={async (e) => {
-                    e.preventDefault();
-                    await mutateAsync({
-                      ...formstate,
-                      income: `${formstate.income}`
-                    });
-                  }}>
-                    {isMutationLoading ? <Spinner /> : null}Save
+                  </Col>
+                  <Button
+                    disabled={isMutationLoading}
+                    color="primary"
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      await mutateAsync({
+                        ...formstate,
+                        income: `${formstate.income}`
+                      });
+                    }}
+                  >
+                    {isMutationLoading ? <Spinner /> : null} Save
                   </Button>
                 </Form>
               </CardBody>
             </Card>
           </Col>
         </Row>
-        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
+        <ToastsContainer
+          store={ToastsStore}
+          position={ToastsContainerPosition.BOTTOM_CENTER}
+        />
       </Container>
     </>
   );
