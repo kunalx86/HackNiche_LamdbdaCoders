@@ -34,7 +34,7 @@ import Header from "components/Headers/Header.js";
 import { useProtected } from "../../hooks/auth-only";
 
 const Dashboard = (props) => {
-  useProtected();
+  // useProtected();
   const [activeNav, setActiveNav] = React.useState(1);
   const [chartExample1Data, setChartExample1Data] = React.useState("data1");
 

@@ -26,7 +26,7 @@ function Profile() {
   };
   const [firstName, setFirstName] = React.useState("jay");
   const [lastName, setLastName] = React.useState("patel");
-  const [email, setEmail] = React.useState("email");
+  const [email, setEmail] = React.useState("abcmail@gmail.com");
   const [age, setAge] = React.useState(20);
   const [income, setIncome] = React.useState(100000)
   const [members, setMembers] = React.useState(4);
