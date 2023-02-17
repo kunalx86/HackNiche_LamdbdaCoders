@@ -8,12 +8,14 @@ auth = Blueprint("auth", __name__)
 @auth.route("/register", methods=["POST"])
 def register_user():
     data = request.json
-    print(db.connection)
     print(f"Register controller, {data}")
     pw_hash = bcrypt.generate_password_hash(data["password"], 10)
     print(f"{pw_hash}")
-    User(email=data["email"], password=pw_hash).save()
-    access_token = create_access_token(identity=data["email"])
+    user = User(email=data["email"], password=pw_hash).save()
+    access_token = create_access_token(identity={
+        "id": str(user.pk),
+        "email": data["email"]
+    })
     print(f"Access Token {access_token}")
     return jsonify(access_token=access_token)
 
@@ -27,6 +29,9 @@ def login_user():
         return jsonify({
             "error": "Either email or password is wrong"
         })
-    access_token = create_access_token(identity=data["email"])
+    access_token = create_access_token(identity={
+        "id": str(user.pk),
+        "email": data["email"]
+    })
     print(f"Access Token {access_token}")
     return jsonify(access_token=access_token)
