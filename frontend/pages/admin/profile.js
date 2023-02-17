@@ -1,5 +1,6 @@
 import React from "react";
-
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 // reactstrap components
 import {
   Button,
@@ -19,6 +20,25 @@ import Admin from "layouts/Admin.js";
 import UserHeader from "components/Headers/UserHeader.js";
 
 function Profile() {
+  const [value, setValue] = React.useState([2, 10]);
+  const rangeSelector = (event, newValue) => {
+    setValue(newValue);
+  };
+  const [firstName, setFirstName] = React.useState("jay");
+  const [lastName, setLastName] = React.useState("patel");
+  const [email, setEmail] = React.useState("email");
+  const [age, setAge] = React.useState(20);
+  const [income, setIncome] = React.useState(100000)
+  const [members, setMembers] = React.useState(4);
+  const [earnings, setEarnings] = React.useState(200000)
+  const [capital, setCapital] = React.useState(50000)
+  const [expense, setExpense] = React.useState(50000)
+  const [address, setAddress] = React.useState("Mumbai")
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+  }
   return (
     <>
       <UserHeader />
@@ -41,47 +61,11 @@ function Profile() {
                 </Col>
               </Row>
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
-                </div>
+
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
-                <Row>
-                  <div className="col">
-                    <div className="card-profile-stats d-flex justify-content-center mt-md-5">
-                      <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
-                      </div>
-                      <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
-                      </div>
-                      <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
-                      </div>
-                    </div>
-                  </div>
-                </Row>
-                <div className="text-center">
+                <br></br>
+                <div className="text-center justify-content-center mt-md-5">
                   <h3>
                     Jessica Jones
                     <span className="font-weight-light">, 27</span>
@@ -94,19 +78,6 @@ function Profile() {
                     <i className="ni business_briefcase-24 mr-2" />
                     Solution Manager - Creative Tim Officer
                   </div>
-                  <div>
-                    <i className="ni education_hat mr-2" />
-                    University of Computer Science
-                  </div>
-                  <hr className="my-4" />
-                  <p>
-                    Ryan — the name taken by Melbourne-raised, Brooklyn-based
-                    Nick Murphy — writes, performs and records all of his own
-                    music.
-                  </p>
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    Show more
-                  </a>
                 </div>
               </CardBody>
             </Card>
@@ -122,7 +93,7 @@ function Profile() {
                     <Button
                       color="primary"
                       href="#pablo"
-                      onClick={(e) => e.preventDefault()}
+                      onClick={(e) => handleClick(e)}
                       size="sm"
                     >
                       Edit
@@ -135,7 +106,7 @@ function Profile() {
                   <h6 className="heading-small text-muted mb-4">
                     User information
                   </h6>
-                  <div className="pl-lg-4">
+                  <div FormclassName="pl-lg-4">
                     <Row>
                       <Col lg="6">
                         <FormGroup>
@@ -147,10 +118,14 @@ function Profile() {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Lucky"
                             id="input-first-name"
                             placeholder="First name"
                             type="text"
+                            value={firstName}
+                            onChange={(e) => {
+                              setFirstName(e.target.value)
+                            }}
+
                           />
                         </FormGroup>
                       </Col>
@@ -168,6 +143,10 @@ function Profile() {
                             id="input-last-name"
                             placeholder="Last name"
                             type="text"
+                            value={lastName}
+                            onChange={(e) => {
+                              setLastName(e.target.value)
+                            }}
                           />
                         </FormGroup>
                       </Col>
@@ -187,6 +166,11 @@ function Profile() {
                             id="input-email"
                             placeholder="jesse@example.com"
                             type="email"
+                            value={email}
+                            onChange={(e) => {
+                              setEmail(e.target.value)
+                            }}
+
                           />
                         </FormGroup>
                       </Col>
@@ -204,6 +188,11 @@ function Profile() {
                             id="input-age"
                             placeholder="age"
                             type="number"
+                            value={age}
+                            onChange={(e) => {
+                              setAge(e.target.value)
+                            }}
+
                           />
                         </FormGroup>
                       </Col>
@@ -227,10 +216,13 @@ function Profile() {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-income"
                             placeholder="Income"
                             type="number"
+                            value={income}
+                            onChange={(e) => {
+                              setIncome(e.target.value)
+                            }}
                           />
                         </FormGroup>
                       </Col>
@@ -244,10 +236,13 @@ function Profile() {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                            value={members}
                             id="input-family-members"
                             placeholder="Number"
                             type="number"
+                            onChange={(e) => {
+                              setMembers(e.target.value)
+                            }}
                           />
                         </FormGroup>
                       </Col>
@@ -263,49 +258,116 @@ function Profile() {
                           </label>
                           <Input
                             className="form-control-alternative"
-                            defaultValue="Total"
+                            value={earnings}
                             id="input-total-earnings"
-                            placeholder="City"
+                            placeholder="0"
                             type="number"
+                            onChange={(e) => {
+                              setEarnings(e.target.value)
+                            }}
                           />
                         </FormGroup>
                       </Col>
-                      <Col lg="4">
+                      <Col lg="6">
                         <FormGroup>
                           <label
                             className="form-control-label"
-                            htmlFor="input-country"
+                            htmlFor="input-investment-capital"
                           >
-                            Country
+                            Investment capital
                           </label>
                           <Input
                             className="form-control-alternative"
                             defaultValue="United States"
-                            id="input-country"
-                            placeholder="Country"
-                            type="text"
+                            id="input-investment-capital"
+                            placeholder="0"
+                            type="number"
+                            value={capital}
+                            onChange={(e) => {
+                              setCapital(e.target.value)
+                            }}
                           />
                         </FormGroup>
                       </Col>
+                      <Col lg="6">
+                        <FormGroup>
+                          <label
+                            className="form-control-label"
+                            htmlFor="input-expense"
+                          >
+                            Monthly Expense
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            defaultValue="United States"
+                            id="input-expense"
+                            placeholder="0"
+                            type="number"
+                            value={expense}
+                            onChange={(e) => {
+                              setExpense(e.target.value)
+                            }}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col lg="8">
+                        <label
+                          className="form-control-label"
+                          htmlFor="input-risk-ratio"
+                        >
+                          Risk Ratio
+                        </label>
+                        <div style={{
+                          margin: 'auto',
+                          display: 'block',
+                          width: 'fit-content'
+                        }}
+                          id="input-risk-ratio"
+                        >
+
+                          <Typography id="range-slider" gutterBottom>
+                            Select Risk Range:
+                          </Typography>
+                          <Slider
+                            value={value}
+                            onChange={rangeSelector}
+                            valueLabelDisplay="auto"
+                          />
+                          Your range of Price is between {value[0]} /- and {value[1]} /-
+                        </div>
+                      </Col>
+
 
                     </Row>
                   </div>
                   <hr className="my-4" />
-                  {/* Description */}
-                  <h6 className="heading-small text-muted mb-4">About me</h6>
-                  <div className="pl-lg-4">
+                  {/* Address Information */}
+                  <h6 className="heading-small text-muted mb-4">Address Information</h6>
+                  <Col lg="8">
                     <FormGroup>
-                      <label>About Me</label>
+                      <label
+                        className="form-control-label"
+                        htmlFor="input-address"
+                      >
+                        Address
+                      </label>
                       <Input
                         className="form-control-alternative"
-                        placeholder="A few words about you ..."
-                        rows="4"
-                        defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
+                        defaultValue="Mumbai"
+                        id="input-address"
+                        placeholder="Address"
                         type="textarea"
+                        value={address}
+                        onChange={(e) => {
+                          setAddress(e.target.value)
+                        }}
                       />
                     </FormGroup>
-                  </div>
+                  </Col>
+                  <hr className="my-4" />
+
+
+
                 </Form>
               </CardBody>
             </Card>
