@@ -1,10 +1,8 @@
 {
-  "name": "nextjs-argon-dashboard",
+  "name": "Finance Chhacah",
   "version": "1.1.0",
-  "author": "Creative Tim",
+  "author": "Rudra Trivedi",
   "license": "MIT",
-  "homepage": "https://demos.creative-tim.com/nextjs-argon-dashboard/",
-  "description": "NextJS version of Argon Dashboard React by Creative Tim",
   "bugs": {
     "url": "https://github.com/creativetimofficial/nextjs-argon-dashboard/issues"
   },

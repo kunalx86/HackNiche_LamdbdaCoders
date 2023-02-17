@@ -23,7 +23,7 @@ function AdminNavbar() {
               <NavbarBrand href="#pablo">
                 <img
                   alt="..."
-                  src={require("assets/img/brand/nextjs_argon_white.png")}
+                  src={require("assets/img/brand/logo.png")}
                 />
               </NavbarBrand>
             </span>
@@ -38,7 +38,7 @@ function AdminNavbar() {
                   <Link href="/admin/dashboard">
                     <img
                       alt="..."
-                      src={require("assets/img/brand/nextjs_argon_black.png")}
+                      src={require("assets/img/brand/logo.png")}
                     />
                   </Link>
                 </Col>
