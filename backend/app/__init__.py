@@ -1,5 +1,6 @@
 from flask import Flask, jsonify
 from flask_mongoengine import MongoEngine
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager, jwt_required, get_jwt_identity
 from flask_bcrypt import Bcrypt
 
@@ -11,6 +12,7 @@ app.config.from_object(Config)
 db = MongoEngine(app)
 jwt = JWTManager(app)
 bcrypt = Bcrypt(app)
+CORS(app, origins="*", supports_credentials=False)
 
 
 from app.blueprints.auth import auth
