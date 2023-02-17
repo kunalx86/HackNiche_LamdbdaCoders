@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 // reactstrap components
 import {
   DropdownMenu,
@@ -17,8 +18,14 @@ import {
   Container,
   Media,
 } from "reactstrap";
+import { useQuery } from "react-query"
+import { useAuth } from "../../providers/AuthProvider";
+import { axios } from "../../axios";
+const LittleAvatar = dynamic(() => import("../LittleAvatar"));
 
 function AdminNavbar({ brandText }) {
+  const { image, user } = useAuth();
+  const { data, isLoading } = useQuery("data-user", () => axios.get("/user_data").then(res => res.data));
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -45,14 +52,11 @@ function AdminNavbar({ brandText }) {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <img
-                      alt="..."
-                      src={require("assets/img/theme/team-4-800x800.jpg")}
-                    />
+                    <LittleAvatar image={image} /> 
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Jessica Jones
+                      {user.identity.email.split()[0]}
                     </span>
                   </Media>
                 </Media>

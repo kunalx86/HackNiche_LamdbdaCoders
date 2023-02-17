@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // reactstrap components
 import {
@@ -12,13 +12,66 @@ import {
   Container,
   Row,
   Col,
+  Spinner,
 } from "reactstrap";
+import { useQuery, useQueryClient, useMutation } from "react-query"
+import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
 // layout for this page
 import Admin from "layouts/Admin.js";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
+import { useAuth } from "../../providers/AuthProvider";
+import { axios } from "../../axios";
 
 function Profile() {
+  const { image, user } = useAuth(); 
+  const queryClient = useQueryClient();
+  const [formstate, setFormstate] = useState({
+    firstname: "",
+    lastname: "",
+    age: 18,
+    income: 10000,
+    family_members_count: 0,
+    total_earnings: 10000,
+    country: "",
+    aboutMe: ""
+  })
+  const { data, isLoading } = useQuery("data-user", () => axios.get("/user_data").then(res => res.data), {
+    refetchOnWindowFocus: false
+  });
+  
+  const { mutateAsync, isLoading: isMutationLoading } = useMutation((draft) => axios.post("/user_data", draft), {
+    onError(_, __, ___) {
+      ToastsStore.error("Something went wrong! 😥")
+    },
+    onSuccess(_, __, ___) {
+      ToastsStore.success("Data saved successfully! 🥳")
+    },
+    onSettled(_, __, ___) {
+      queryClient.invalidateQueries("data-user");
+    }
+  });
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      setFormstate((f) => ({
+        ...f,
+        ...data,
+        income: parseInt(data.income)
+      }));
+    }
+  }, [isLoading, data]);
+
+  const onChange = (e) => {
+    setFormstate(f => ({
+      ...f,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  if (isLoading) {
+    return <Spinner />
+  }
   return (
     <>
       <UserHeader />
@@ -33,62 +86,42 @@ function Profile() {
                     <a href="#pablo" onClick={(e) => e.preventDefault()}>
                       <img
                         alt="..."
-                        className="rounded-circle"
-                        src={require("assets/img/theme/team-4-800x800.jpg")}
+                        className=""
+                        src={typeof window !== "undefined" ? window.webkitURL.createObjectURL(image) : ""}
                       />
                     </a>
                   </div>
                 </Col>
               </Row>
               <CardHeader className="text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                <div className="d-flex justify-content-between">
-                  <Button
-                    className="mr-4"
-                    color="info"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Connect
-                  </Button>
-                  <Button
-                    className="float-right"
-                    color="default"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="sm"
-                  >
-                    Message
-                  </Button>
-                </div>
               </CardHeader>
               <CardBody className="pt-0 pt-md-4">
                 <Row>
                   <div className="col">
                     <div className="card-profile-stats d-flex justify-content-center mt-md-5">
                       <div>
-                        <span className="heading">22</span>
-                        <span className="description">Friends</span>
+                        <span className="heading">➕22%</span>
+                        <span className="description">Savings</span>
                       </div>
                       <div>
-                        <span className="heading">10</span>
-                        <span className="description">Photos</span>
+                        <span className="heading">➕10%</span>
+                        <span className="description">Expenditure</span>
                       </div>
                       <div>
-                        <span className="heading">89</span>
-                        <span className="description">Comments</span>
+                        <span className="heading">➕26%</span>
+                        <span className="description">Portfolio Growth</span>
                       </div>
                     </div>
                   </div>
                 </Row>
                 <div className="text-center">
                   <h3>
-                    Jessica Jones
-                    <span className="font-weight-light">, 27</span>
+                    {`${data.firstname} ${data.lastname}`}
+                    <span className="font-weight-light">, {data.age}</span>
                   </h3>
                   <div className="h5 font-weight-300">
                     <i className="ni location_pin mr-2" />
-                    Bucharest, Romania
+                    {data.country}
                   </div>
                   <div className="h5 mt-4">
                     <i className="ni business_briefcase-24 mr-2" />
@@ -118,16 +151,6 @@ function Profile() {
                   <Col xs="8">
                     <h3 className="mb-0">My account</h3>
                   </Col>
-                  <Col className="text-right" xs="4">
-                    <Button
-                      color="primary"
-                      href="#pablo"
-                      onClick={(e) => e.preventDefault()}
-                      size="sm"
-                    >
-                      Edit
-                    </Button>
-                  </Col>
                 </Row>
               </CardHeader>
               <CardBody>
@@ -146,6 +169,9 @@ function Profile() {
                             First name
                           </label>
                           <Input
+                            name="firstname"
+                            value={formstate.firstname}
+                            onChange={onChange}
                             className="form-control-alternative"
                             defaultValue="Lucky"
                             id="input-first-name"
@@ -163,6 +189,9 @@ function Profile() {
                             Last name
                           </label>
                           <Input
+                            name="lastname"
+                            value={formstate.lastname}
+                            onChange={onChange}
                             className="form-control-alternative"
                             defaultValue="Jesse"
                             id="input-last-name"
@@ -183,6 +212,9 @@ function Profile() {
                             Email address
                           </label>
                           <Input
+                            name="email"
+                            value={user.identity.email}
+                            disabled
                             className="form-control-alternative"
                             id="input-email"
                             placeholder="jesse@example.com"
@@ -200,6 +232,9 @@ function Profile() {
                             Age
                           </label>
                           <Input
+                            name="age"
+                            value={formstate.age}
+                            onChange={onChange}
                             className="form-control-alternative"
                             id="input-age"
                             placeholder="age"
@@ -226,6 +261,9 @@ function Profile() {
                             Income
                           </label>
                           <Input
+                            name="income"
+                            value={formstate.income}
+                            onChange={onChange}
                             className="form-control-alternative"
                             defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-income"
@@ -243,6 +281,9 @@ function Profile() {
                             Family Members
                           </label>
                           <Input
+                            name="family_members_count"
+                            value={formstate.family_members_count}
+                            onChange={onChange}
                             className="form-control-alternative"
                             defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
                             id="input-family-members"
@@ -262,6 +303,9 @@ function Profile() {
                             Total Earnings
                           </label>
                           <Input
+                            name="total_earnings"
+                            value={formstate.total_earnings}
+                            onChange={onChange}
                             className="form-control-alternative"
                             defaultValue="Total"
                             id="input-total-earnings"
@@ -279,8 +323,11 @@ function Profile() {
                             Country
                           </label>
                           <Input
+                            name="country"
+                            value={formstate.country}
+                            onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="United States"
+                            defaultValue="India"
                             id="input-country"
                             placeholder="Country"
                             type="text"
@@ -297,20 +344,31 @@ function Profile() {
                     <FormGroup>
                       <label>About Me</label>
                       <Input
+                        name="aboutMe"
+                        onChange={onChange}
+                        value={formstate.aboutMe}
                         className="form-control-alternative"
                         placeholder="A few words about you ..."
                         rows="4"
-                        defaultValue="A beautiful Dashboard for Bootstrap 4. It is Free and
-                          Open Source."
                         type="textarea"
                       />
                     </FormGroup>
                   </div>
+                  <Button disabled={isMutationLoading} color="primary" onClick={async (e) => {
+                    e.preventDefault();
+                    await mutateAsync({
+                      ...formstate,
+                      income: `${formstate.income}`
+                    });
+                  }}>
+                    {isMutationLoading ? <Spinner /> : null}Save
+                  </Button>
                 </Form>
               </CardBody>
             </Card>
           </Col>
         </Row>
+        <ToastsContainer store={ToastsStore} position={ToastsContainerPosition.BOTTOM_CENTER} />
       </Container>
     </>
   );

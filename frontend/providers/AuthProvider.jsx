@@ -1,3 +1,4 @@
+import axios_ from "axios";
 import { axios } from "../axios";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -6,6 +7,7 @@ const AuthContext = createContext({
   isLoading: false,
   isLoggedIn: false,
   error: null,
+  image: null,
   login: async (creds) => {},
   signUp: async (creds) => {},
   logout: () => {}
@@ -13,6 +15,7 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -38,6 +41,14 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     me();
   }, []);
+
+  useEffect(() => {
+    if (!isLoading && user !== null) {
+      fetch(`https://api.dicebear.com/5.x/pixel-art/png?seed=${user.identity.email.split()[0]}`)
+        .then(res => res.blob())
+        .then(blob => setImage(blob))
+    }
+  }, [isLoading, user]);
 
   const login = async (creds) => {
     setIsLoading(true);
@@ -84,6 +95,7 @@ export function AuthProvider({ children }) {
         isLoading,
         isLoggedIn,
         error,
+        image,
         login,
         signUp,
         logout

@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from app import bcrypt, db
 from flask_jwt_extended import create_access_token
 from app.models.user import User
+from app.models.user_data import UserData
 
 auth = Blueprint("auth", __name__)
 
@@ -12,6 +13,15 @@ def register_user():
     pw_hash = bcrypt.generate_password_hash(data["password"], 10)
     print(f"{pw_hash}")
     user = User(email=data["email"], password=pw_hash).save()
+    UserData(
+        user=user.pk,
+        firstname="",
+        lastname="",
+        age=0,
+        income="0",
+        family_members_count=0,
+        country=""
+    ).save()
     access_token = create_access_token(identity={
         "id": str(user.pk),
         "email": data["email"]

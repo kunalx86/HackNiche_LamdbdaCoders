@@ -18,6 +18,9 @@ CORS(app, origins="*", supports_credentials=False)
 from app.blueprints.auth import auth
 app.register_blueprint(auth, url_prefix="/auth")
 
+from app.blueprints.user_data import user_data
+app.register_blueprint(user_data, url_prefix="/user_data")
+
 @app.route("/me")
 @jwt_required()
 def protected():
