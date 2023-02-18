@@ -12,9 +12,9 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/maps",
-    name: "Maps",
-    icon: "ni ni-pin-3 text-orange",
+    path: "/investments",
+    name: "Investments",
+    icon: "ni ni-money-coins text-orange",
     layout: "/admin",
   },
   {
@@ -46,10 +46,11 @@ var routes = [
     name: "Register",
     icon: "ni ni-circle-08 text-pink",
     layout: "/auth",
-  }, {
-    path: "/investments",
-    name: "Investments",
-    icon: "ni ni-money-coins text-black",
+  },
+  {
+    path: "/prediction",
+    name: "Prediction",
+    icon: "ni ni-sound-wave text-green",
     layout: "/admin",
   },
 ];
