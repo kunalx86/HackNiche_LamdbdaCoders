@@ -8,6 +8,7 @@ class UserData(db.Document):
     income = db.StringField()
     family_members_count = db.IntField()
     country = db.StringField()
+    expense = db.StringField()
     meta = {
         "indexes": [
             {
