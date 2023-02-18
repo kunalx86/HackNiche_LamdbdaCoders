@@ -1,0 +1,103 @@
+{
+    "balances": {
+      "path_to_balances": "C:\\Users\\rudra\\OneDrive\\Desktop\\Projects\\HackNiche_LamdbdaCoders-1\\backend\\app\\lib\\yes1_balances.xlsx",
+      "values": {
+        "Average Weekly Closing Balance": 4574,
+        "Avg Daily Closing Balance": 6697,
+        "Avg Monthly Closing Balance": 4451,
+        "Avg Monthly Volume": 199449,
+        "Avg Weekly Volume": 46026
+      }
+    },
+    "basic_info": {
+      "account_no": "063991900002710",
+      "bank": "YES BANK",
+      "ifsc": "YESBO000639",
+      "name": "K GEETHANJALI",
+      "salary": 29515.375,
+      "total_months_statement": 8,
+      "total_transactions": 153
+    },
+    "output_fields": {
+      "path_to_fields": "C:\\Users\\rudra\\OneDrive\\Desktop\\Projects\\HackNiche_LamdbdaCoders-1\\backend\\app\\lib\\yes1_outputs.xlsx",
+      "values": {
+        "cash_inflow": {
+          "cash": {
+            "amount": 514000,
+            "count": 5
+          },
+          "imps": {
+            "amount": 166199,
+            "count": 20
+          },
+          "interest": {
+            "amount": 236,
+            "count": 3
+          },
+          "miscellaneous": {
+            "amount": 3211,
+            "count": 2
+          },
+          "neft": {
+            "amount": 29655,
+            "count": 1
+          },
+          "nettxn": {
+            "amount": 206468,
+            "count": 7
+          },
+          "refund": {
+            "amount": 140,
+            "count": 2
+          },
+          "trf": {
+            "amount": 2000,
+            "count": 1
+          }
+        },
+        "cash_outflow": {
+          "atm": {
+            "amount": 92000,
+            "count": 13
+          },
+          "emi": {
+            "amount": 28856,
+            "count": 4
+          },
+          "food": {
+            "amount": 159,
+            "count": 1
+          },
+          "imps": {
+            "amount": 627892,
+            "count": 39
+          },
+          "invest": {
+            "amount": 18029,
+            "count": 1
+          },
+          "loan": {
+            "amount": 36070,
+            "count": 5
+          },
+          "miscellaneous": {
+            "amount": 209,
+            "count": 1
+          },
+          "nettxn": {
+            "amount": 81160,
+            "count": 12
+          },
+          "shopping": {
+            "amount": 7466,
+            "count": 2
+          },
+          "trf": {
+            "amount": 80948,
+            "count": 34
+          }
+        }
+      }
+    },
+    "processed_trans_path": "C:\\Users\\rudra\\OneDrive\\Desktop\\Projects\\HackNiche_LamdbdaCoders-1\\backend\\app\\lib\\yes1_processed.xlsx"
+  }
