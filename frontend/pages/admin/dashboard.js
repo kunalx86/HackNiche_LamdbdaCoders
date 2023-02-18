@@ -112,9 +112,9 @@ const Dashboard = (props) => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-muted ls-1 mb-1">
-                      Performance
+                      
                     </h6>
-                    <h2 className="mb-0">Total orders</h2>
+                    <h2 className="mb-0">Expense Bifurcation</h2>
                   </div>
                 </Row>
               </CardHeader>
@@ -136,7 +136,7 @@ const Dashboard = (props) => {
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
-                    <h3 className="mb-0">Page visits</h3>
+                    <h3 className="mb-0">Portfolio</h3>
                   </div>
                   <div className="col text-right">
                     <Button
@@ -153,15 +153,15 @@ const Dashboard = (props) => {
               <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col">Page name</th>
-                    <th scope="col">Visitors</th>
-                    <th scope="col">Unique users</th>
-                    <th scope="col">Bounce rate</th>
+                    <th scope="col">Investments</th>
+                    <th scope="col">Alloted</th>
+                    <th scope="col">Profit Gain</th>
+                    <th scope="col">Profit/Loss</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">/argon/</th>
+                    <th scope="row">Stocks</th>
                     <td>4,569</td>
                     <td>340</td>
                     <td>
@@ -169,7 +169,7 @@ const Dashboard = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">/argon/index.html</th>
+                    <th scope="row">Bonds</th>
                     <td>3,985</td>
                     <td>319</td>
                     <td>
@@ -178,7 +178,7 @@ const Dashboard = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">/argon/charts.html</th>
+                    <th scope="row">Gold</th>
                     <td>3,513</td>
                     <td>294</td>
                     <td>
@@ -187,7 +187,7 @@ const Dashboard = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">/argon/tables.html</th>
+                    <th scope="row">Government Schemes</th>
                     <td>2,050</td>
                     <td>147</td>
                     <td>
@@ -195,7 +195,7 @@ const Dashboard = (props) => {
                     </td>
                   </tr>
                   <tr>
-                    <th scope="row">/argon/profile.html</th>
+                    <th scope="row">Crypto</th>
                     <td>1,795</td>
                     <td>190</td>
                     <td>
@@ -208,7 +208,7 @@ const Dashboard = (props) => {
             </Card>
           </Col>
           <Col xl="4">
-            <Card className="shadow">
+            {/* <Card className="shadow">
               <CardHeader className="border-0">
                 <Row className="align-items-center">
                   <div className="col">
@@ -226,7 +226,7 @@ const Dashboard = (props) => {
                   </div>
                 </Row>
               </CardHeader>
-              <Table className="align-items-center table-flush" responsive>
+              {/* <Table className="align-items-center table-flush" responsive>
                 <thead className="thead-light">
                   <tr>
                     <th scope="col">Referral</th>
@@ -312,8 +312,8 @@ const Dashboard = (props) => {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
-            </Card>
+              </Table> */}
+            {/* </Card> */} 
           </Col>
         </Row>
       </Container>
