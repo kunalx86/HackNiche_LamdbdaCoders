@@ -17,7 +17,7 @@ function Footer() {
               rel="noopener noreferrer"
               target="_self"
             >
-              app name
+              Finance Chhacha
             </a>
           </div>
         </Col>

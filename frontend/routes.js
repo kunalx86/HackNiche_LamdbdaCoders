@@ -24,9 +24,9 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
+    path: "/stocks",
+    name: "Stocks",
+    icon: "ni ni-spaceship text-red",
     layout: "/admin",
   },
   {
