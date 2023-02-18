@@ -41,5 +41,11 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     layout: "/auth",
   },
+  {
+    path: "/prediction",
+    name: "Prediction",
+    icon: "ni ni-sound-wave text-green",
+    layout: "/admin",
+  },
 ];
 export default routes;
