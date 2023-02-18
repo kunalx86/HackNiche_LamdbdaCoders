@@ -45,6 +45,7 @@ function Profile() {
     country: "",
     aboutMe: "",
     address: "",
+    expense: ""
   });
   const { data, isLoading } = useQuery(
     "data-user",
@@ -339,14 +340,14 @@ function Profile() {
                             Monthly Expense
                           </label>
                           <Input
-                            name="country"
-                            value={formstate.country}
+                            name="expense"
+                            value={formstate.expense}
                             onChange={onChange}
                             className="form-control-alternative"
-                            defaultValue="United States"
-                            id="input-country"
-                            placeholder="Country"
-                            type="text"
+                            defaultValue="expense"
+                            id="input-expense"
+                            placeholder="expense"
+                            type="number"
                           />
                         </FormGroup>
                       </Col>
