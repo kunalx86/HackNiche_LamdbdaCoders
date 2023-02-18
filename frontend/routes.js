@@ -30,6 +30,12 @@ var routes = [
     layout: "/admin",
   },
   {
+    path: "/expenses",
+    name: "Expenses",
+    icon: "ni ni-fat-add text-green",
+    layout: "/admin"
+  },
+  {
     path: "/login",
     name: "Login",
     icon: "ni ni-key-25 text-info",
