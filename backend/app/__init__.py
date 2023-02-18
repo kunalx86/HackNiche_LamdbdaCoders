@@ -21,6 +21,9 @@ app.register_blueprint(auth, url_prefix="/auth")
 from app.blueprints.user_data import user_data
 app.register_blueprint(user_data, url_prefix="/user_data")
 
+from app.blueprints.bank_statement import bank_statement
+app.register_blueprint(bank_statement, url_prefix="/bank_statement")
+
 @app.route("/me")
 @jwt_required()
 def protected():
