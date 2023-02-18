@@ -22,6 +22,7 @@ def user_data_index():
             income=data["income"],
             family_members_count=data["family_members_count"],
             country=data["country"],
+            expense=data["expense"]
         )
         return jsonify({
             "success": True
