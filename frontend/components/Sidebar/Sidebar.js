@@ -59,8 +59,7 @@ function Sidebar(props) {
     return routes.map((prop, key) => {
       {
         return (
-          <NavItem key={key} active={activeRoute(prop.layout + prop.path)
-          }>
+          <NavItem key={key} active={activeRoute(prop.layout + prop.path)}>
             <Link href={prop.layout + prop.path}>
               <NavLink
                 href="#pablo"
@@ -72,15 +71,19 @@ function Sidebar(props) {
               </NavLink>
             </Link>
           </NavItem>
-
-        )
+        );
       }
-    })
-  }
+    });
+  };
   const { routes, logo } = props;
   let navbarBrand = (
-    <NavbarBrand href="#pablo" className="pt-0">
-      <img alt={logo.imgAlt} className="navbar-brand-img" src={logo.imgSrc} />
+    <NavbarBrand href="#pablo" className="pt-0" style={{ width: "100%", height: "4rem", alignItems: "center", margin:"auto", justifyContent:"center", }}>
+      <img
+        alt={logo.imgAlt}
+        className="navbar-brand-img"
+        src={logo.imgSrc}
+        style={{ width: "250rem", height: "37rem",  }}
+      />
     </NavbarBrand>
   );
   return (
@@ -224,8 +227,6 @@ function Sidebar(props) {
           {/* Divider */}
           <hr className="my-3" />
           {/* Heading */}
-
-
         </Collapse>
       </Container>
     </Navbar>

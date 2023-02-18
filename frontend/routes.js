@@ -5,12 +5,12 @@ var routes = [
     icon: "ni ni-tv-2 text-primary",
     layout: "/admin",
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    layout: "/admin",
-  },
+  // {
+  //   path: "/icons",
+  //   name: "Icons",
+  //   icon: "ni ni-planet text-blue",
+  //   layout: "/admin",
+  // },
   {
     path: "/investments",
     name: "Investments",
