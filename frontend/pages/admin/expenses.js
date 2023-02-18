@@ -28,6 +28,7 @@ const ExpensesPage = () => {
   const cashOutflow = data.output_fields.values.cash_outflow;
 
   const [file, setFile] = useState(null);
+  const [display, setDisplay] = useState(false);
 
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
@@ -50,6 +51,15 @@ const ExpensesPage = () => {
       });
     }
   }
+
+  const handleSubmit1=()=>{
+    
+    setTimeout(() => {
+      setDisplay(true)
+    }, 2000);
+
+  }
+
   return (
     <>
       <Header />
@@ -62,7 +72,7 @@ const ExpensesPage = () => {
               <br></br>
               <input type="file" accept="application/pdf" onChange={handleFileChange} />
             </Button>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" onClick={handleSubmit1}>Submit</Button>
 
           </form>
         </Row>
@@ -70,7 +80,7 @@ const ExpensesPage = () => {
 
       {/* Page content */}
 
-      <Container className="mt--15" fluid style={{ marginTop: "35px" }}>
+     {display && <Container className="mt--15" fluid style={{ marginTop: "35px" }}>
         {/* Table */}
         <Row>
 
@@ -197,7 +207,7 @@ const ExpensesPage = () => {
             </Card>
           </div>
         </Row>
-      </Container>
+      </Container>}
     </>
   );
 };
