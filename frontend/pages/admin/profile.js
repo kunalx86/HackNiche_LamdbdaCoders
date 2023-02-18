@@ -45,7 +45,7 @@ function Profile() {
     country: "",
     aboutMe: "",
     address: "",
-    expense: ""
+    expense: 5000
   });
   const { data, isLoading } = useQuery(
     "data-user",
@@ -76,6 +76,7 @@ function Profile() {
         ...f,
         ...data,
         income: parseInt(data.income),
+        expense: parseInt(data.expense)
       }));
     }
   }, [isLoading, data]);
@@ -412,7 +413,8 @@ function Profile() {
                       e.preventDefault();
                       await mutateAsync({
                         ...formstate,
-                        income: `${formstate.income}`
+                        income: `${formstate.income}`,
+                        expense: `${formstate.expense}`
                       });
                     }}
                   >
