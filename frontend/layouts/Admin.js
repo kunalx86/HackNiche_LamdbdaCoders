@@ -24,7 +24,7 @@ function Admin(props) {
         return routes[i].name;
       }
     }
-    return "Brand";
+    return "Finance Chacha";
   };
   return (
     <>

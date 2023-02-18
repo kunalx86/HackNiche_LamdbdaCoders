@@ -32,7 +32,8 @@ function AdminNavbar({ brandText }) {
         <Container fluid>
           <Link href="/admin/dashboard">
             <a className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block">
-              {brandText}
+              {/* {brandText} */}
+              {`Finance Chacha`}
             </a>
           </Link>
           <Form className="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
@@ -52,11 +53,11 @@ function AdminNavbar({ brandText }) {
               <DropdownToggle className="pr-0" nav>
                 <Media className="align-items-center">
                   <span className="avatar avatar-sm rounded-circle">
-                    <LittleAvatar image={image} /> 
+                    {/* <LittleAvatar image={image} />  */}
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {user.identity.email.split()[0]}
+                      {user?.identity?.email?.split()[0]}
                     </span>
                   </Media>
                 </Media>
